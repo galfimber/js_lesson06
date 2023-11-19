@@ -1,9 +1,14 @@
 "use strict";
 
 const random = Math.ceil(Math.random() * 100);
+let result;
 
-function guess(random) {
+function guess(random, attempts = 10) {
   function guess2() {
+    if (attempts < 0) {
+      result = confirm("Попытки закончились, хотите сыграть еще?");
+      return result;
+    }
     const answer = prompt("Угадай число от 1 до 100");
     if (answer === null) {
       console.log("Игра окончена");
@@ -12,24 +17,30 @@ function guess(random) {
       console.log("Введи число!");
       guess2();
     } else {
+      attempts--;
       switch (true) {
         case answer < random:
-          console.log("Загаданное число больше");
+          console.log(`Загаданное число больше, осталось попыток ${attempts}`);
           guess2();
           break;
         case answer > random:
-          console.log("Загаданное число меньше");
+          console.log(`Загаданное число меньше, осталось попыток ${attempts}`);
           guess2();
           break;
         default:
-          console.log("Поздравляю, Вы угадали!!!");
+          result = confirm("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?");
           break;
       }
     }
   }
 
   guess2();
+  return result;
 }
 
 console.log(random);
-guess(random);
+if (guess(random)) {
+  guess(random);
+} else {
+  console.log("Игра окончена");
+}
