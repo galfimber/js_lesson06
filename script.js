@@ -4,7 +4,9 @@
 let play = true;
 let result = true;
 
-function guess(random, attempts = 10) {
+function guess(attempts = 10) {
+  const random = Math.ceil(Math.random() * 100);
+
   function guess2() {
     if (attempts < 1) {
       result = confirm("Попытки закончились, хотите сыграть еще?");
@@ -33,10 +35,14 @@ function guess(random, attempts = 10) {
           break;
       }
     }
+    if (result) {
+      guess();
+    }
   }
 
+  console.log(random);
   guess2();
-  return result;
+  //return result;
 }
 
 //console.log(random);
@@ -46,9 +52,12 @@ function guess(random, attempts = 10) {
 //   console.log("Игра окончена");
 // }
 
-do {
-  const random = Math.ceil(Math.random() * 100);
-  console.log(random);
-  play = guess(random);
-} while (play === true);
+// do {
+//   const random = Math.ceil(Math.random() * 100);
+//   console.log(random);
+//   play = guess(random);
+// } while (play === true);
+// alert("Игра окончена");
+
+guess();
 alert("Игра окончена");
